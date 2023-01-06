@@ -291,24 +291,80 @@ int Keyboard::buttonPressTime()
 }
 
 
-
-
-
-
 /*
  new UDT 4:
  with 2 member functions
  */
 
+struct StuffOnMyDesk
+{
+    StuffOnMyDesk();
+    ~StuffOnMyDesk();
 
+    Mp3Player mp3Player;
+    Keyboard keyboard;
 
+    int countThings();
+    void cleanDesk();
+};
 
+int StuffOnMyDesk::countThings()
+{
+    return mp3Player.numberOfCardSlots + mp3Player.numberOfButtons + keyboard.numberOfFunctionKeys + keyboard.numberOfKeys;
+}
+
+void StuffOnMyDesk::cleanDesk()
+{
+    mp3Player.onOffSwitchColor = "shiny white";
+    keyboard.caseColor = "shiny black";
+}
 
 
 /*
  new UDT 5:
  with 2 member functions
  */
+
+struct ThingsToBuy
+{
+    ThingsToBuy();
+    ~ThingsToBuy();
+
+    CdDrive cdDrive;
+    Keyboard keyboard;
+
+    int findCdDrivePrice();
+    int findKeyboardPrice();
+};
+
+ThingsToBuy::ThingsToBuy()
+{
+    
+}
+
+ThingsToBuy::~ThingsToBuy()
+{
+    
+}
+    
+int ThingsToBuy::findCdDrivePrice()
+{
+    if (cdDrive.maxSpeed > 50)
+    {
+        return 100;
+    }
+    return 75;
+}
+
+int ThingsToBuy::findKeyboardPrice()
+{
+    if (keyboard.numberOfKeys < 50)
+    {
+        return 25;
+    }
+    return 50;
+}
+
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
