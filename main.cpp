@@ -72,6 +72,7 @@ write 3 UDTs below that EACH have:
  */
 #include <iostream>
 
+
 /*
  copied UDT 1:
  */
@@ -82,7 +83,7 @@ struct Mp3Player
 
     ~Mp3Player() 
     {
-    std::cout << "Mp3Player being destructed!" << std::endl;
+        std::cout << "Mp3Player being destructed!" << std::endl;
     }
 
     int numberOfButtons;
@@ -119,7 +120,7 @@ void Mp3Player::playFile()
 
 void Mp3Player::displayInfo()
 {
-    
+    std::cout << "Mp3Player::displayInfo() displayScreenWidth:" << displayScreenWidth << std::endl;
 }
 
 int Mp3Player::findFiles()
@@ -132,11 +133,6 @@ int Mp3Player::findFiles()
     }
     return count;
 }
-
-
-
-
-
 
 
 /*
@@ -194,27 +190,27 @@ void CdDrive::playCd()
 
 void CdDrive::playDVD()
 {
-    std::cout << "CdDrive::playDVD() maxSpeed:" << maxSpeed << " discDiameter: " << discDiameter << std::endl;
+    std::cout << "CdDrive::playDVD() maxSpeed:" << maxSpeed << ", discDiameter: " << discDiameter << std::endl;
 }
 
 void CdDrive::writeCdr()
 {
-    
+    std::cout << "Writing CDr in tray " << numberOfTrays << std::endl;
 }
 
 void CdDrive::CD::getScratched()
 {
-    
+    std::cout << "CD " << title << " is getting scratched." << std::endl;
 }
 
 void CdDrive::CD::storeData()
 {
-    
+    std::cout << "CD is storing data at " << maxSpeed << "rpm." << std::endl;
 }
 
 void CdDrive::CD::goObsolete()
 {
-    
+    std::cout << "CD " << title << " is going obsolete." << std::endl;
 }
 
 int CdDrive::findSpeed()
@@ -228,10 +224,6 @@ int CdDrive::findSpeed()
 }
 
 
-
-
-
-
 /*
  copied UDT 3:
  */
@@ -242,7 +234,7 @@ struct Keyboard
 
     ~Keyboard()
     {
-    std::cout << "Keyboard being destructed!" << std::endl;
+        std::cout << "Keyboard being destructed!" << std::endl;
     }
 
     int numberOfKeys;
@@ -277,7 +269,7 @@ void Keyboard::displayNumLock()
 
 void Keyboard::displayCapsLock()
 {
-
+    std::cout << "Keyboard::displayCapsLock() width:" << width << std::endl;
 }
 
 int Keyboard::buttonPressTime()
