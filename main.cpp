@@ -308,6 +308,18 @@ struct StuffOnMyDesk
     void cleanDesk();
 };
 
+StuffOnMyDesk::StuffOnMyDesk()
+{
+    std::cout << "StuffOnMyDesk constructing" << std::endl;
+    std::cout << "mp3Player.numberOfCardSlots: " << mp3Player.numberOfCardSlots << std::endl;
+}
+
+StuffOnMyDesk::~StuffOnMyDesk()
+{
+    std::cout << "StuffOnMyDesk destructing" << std::endl;
+    std::cout << "keyboard.width: " << keyboard.width << std::endl;
+}
+
 int StuffOnMyDesk::countThings()
 {
     return mp3Player.numberOfCardSlots + mp3Player.numberOfButtons + keyboard.numberOfFunctionKeys + keyboard.numberOfKeys;
@@ -339,12 +351,13 @@ struct ThingsToBuy
 
 ThingsToBuy::ThingsToBuy()
 {
-    
+    std::cout << "ThingsToBuy constructing" << std::endl;
 }
 
 ThingsToBuy::~ThingsToBuy()
 {
-    
+    std::cout << "ThingsToBuy destructing" << std::endl;
+    keyboard.buttonPressTime();
 }
     
 int ThingsToBuy::findCdDrivePrice()
@@ -383,5 +396,49 @@ int ThingsToBuy::findKeyboardPrice()
 #include <iostream>
 int main()
 {
+    Mp3Player mp3Player1;
+    mp3Player1.loadFile("music/mysong.mp3");
+    mp3Player1.displayInfo();
+    std::cout << "mp3Player1.onOffSwitchColor: " << mp3Player1.onOffSwitchColor << std::endl;
+    
+    Mp3Player mp3Player2;
+    mp3Player2.playFile();
+    int mp3FileCount = mp3Player2.findFiles();
+    std::cout << "mp3FileCount: " << mp3FileCount << std::endl;
+     
+    CdDrive cdDrive1;
+    cdDrive1.playCd();
+    cdDrive1.playDVD();
+    cdDrive1.writeCdr();
+    std::cout << "cdDrive1.maxSpeed: " << cdDrive1.maxSpeed << std::endl;
+    int cdDriveSpeed = cdDrive1.findSpeed();
+    std::cout << "cdDrive1 speed: " << cdDriveSpeed << std::endl;
+    
+    CdDrive::CD darkSide;
+    darkSide.getScratched();
+    darkSide.storeData();
+    darkSide.goObsolete();
+    
+    Keyboard keyboard1;
+    keyboard1.outputButtonPress(23);
+    keyboard1.displayNumLock();
+    keyboard1.displayCapsLock();
+    std::cout << "keyboard1.buttonColor: " << keyboard1.buttonColor << std::endl;
+    int buttonTime1 = keyboard1.buttonPressTime();
+    std::cout << "buttonTime1: " << buttonTime1 << std::endl;
+
+    StuffOnMyDesk stuffOnThisDesk;
+    int deskThingCount = stuffOnThisDesk.countThings();
+    std::cout << "deskThingCount: " << deskThingCount << std::endl;
+    std::cout << "before clean keyboard color: " << stuffOnThisDesk.keyboard.caseColor << std::endl;
+    stuffOnThisDesk.cleanDesk();
+    std::cout << "after clean keyboard color: " << stuffOnThisDesk.keyboard.caseColor << std::endl;
+
+    ThingsToBuy buyTheseThings;
+    int cdDrivePrice1 = buyTheseThings.findCdDrivePrice();
+    std::cout << "cdDrivePrice1: " << cdDrivePrice1 << std::endl;
+    int keyboardPrice1 = buyTheseThings.findKeyboardPrice();
+    std::cout << "keyboardPrice1: " << keyboardPrice1 << std::endl;
+    
     std::cout << "good to go!" << std::endl;
 }
