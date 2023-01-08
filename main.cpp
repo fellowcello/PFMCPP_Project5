@@ -99,7 +99,7 @@ struct Mp3Player
     void displayInfo(); 
     int findFiles();
 
-    void onOffSwitchColorCout();
+    void showOnOffSwitchColor();
 };
 
 Mp3Player::Mp3Player() :
@@ -138,9 +138,9 @@ int Mp3Player::findFiles()
     return count;
 }
 
-void Mp3Player::onOffSwitchColorCout()
+void Mp3Player::showOnOffSwitchColor()
 {
-    std::cout << "Mp3Player::onOffSwitchColorCout: " << this->onOffSwitchColor << std::endl;
+    std::cout << "Mp3Player::showOnOffSwitchColor: " << this->onOffSwitchColor << std::endl;
 }
 
 
@@ -164,7 +164,7 @@ struct CdDrive
     void writeCdr(); 
     int findSpeed();
 
-    void maxSpeedCout();
+    void showMaxSpeed();
 
     struct CD
     {
@@ -234,9 +234,9 @@ int CdDrive::findSpeed()
     return speed;
 }
 
-void CdDrive::maxSpeedCout()
+void CdDrive::showMaxSpeed()
 {
-    std::cout << "CdDrive::maxSpeedCout: " << this->maxSpeed << std::endl;
+    std::cout << "CdDrive::showMaxSpeed: " << this->maxSpeed << std::endl;
 }
 
 
@@ -264,7 +264,7 @@ struct Keyboard
     void displayCapsLock(); 
     int buttonPressTime();
 
-    void buttonColorCout(); 
+    void showButtonColor(); 
 };
 
 Keyboard::Keyboard() :
@@ -300,9 +300,9 @@ int Keyboard::buttonPressTime()
     return time;
 }
 
-void Keyboard::buttonColorCout()
+void Keyboard::showButtonColor()
 {
-    std::cout << "Keyboard::buttonColorCout: " << this->buttonColor << std::endl;
+    std::cout << "Keyboard::showButtonColor: " << this->buttonColor << std::endl;
 }
 
 
@@ -322,7 +322,7 @@ struct StuffOnMyDesk
     int countThings();
     void cleanDesk();
 
-    void keyboardCaseColorCout();
+    void showKeyboardCaseColor();
 };
 
 StuffOnMyDesk::StuffOnMyDesk()
@@ -348,9 +348,9 @@ void StuffOnMyDesk::cleanDesk()
     keyboard.caseColor = "shiny black";
 }
 
-void StuffOnMyDesk::keyboardCaseColorCout()
+void StuffOnMyDesk::showKeyboardCaseColor()
 {
-    std::cout << "StuffOnMyDesk::keyboardCaseColorCout: " << this->keyboard.caseColor << std::endl;
+    std::cout << "StuffOnMyDesk::showKeyboardCaseColor: " << this->keyboard.caseColor << std::endl;
 }
 
 
@@ -422,7 +422,7 @@ int main()
     mp3Player1.loadFile("music/mysong.mp3");
     mp3Player1.displayInfo();
     std::cout << "mp3Player1.onOffSwitchColor: " << mp3Player1.onOffSwitchColor << std::endl;
-    mp3Player1.onOffSwitchColorCout();
+    mp3Player1.showOnOffSwitchColor();
     
     Mp3Player mp3Player2;
     mp3Player2.playFile();
@@ -434,7 +434,7 @@ int main()
     cdDrive1.playDVD();
     cdDrive1.writeCdr();
     std::cout << "cdDrive1.maxSpeed: " << cdDrive1.maxSpeed << std::endl;
-    cdDrive1.maxSpeedCout();
+    cdDrive1.showMaxSpeed();
     int cdDriveSpeed = cdDrive1.findSpeed();
     std::cout << "cdDrive1 speed: " << cdDriveSpeed << std::endl;
     
@@ -448,7 +448,7 @@ int main()
     keyboard1.displayNumLock();
     keyboard1.displayCapsLock();
     std::cout << "keyboard1.buttonColor: " << keyboard1.buttonColor << std::endl;
-    keyboard1.buttonColorCout();
+    keyboard1.showButtonColor();
     int buttonTime1 = keyboard1.buttonPressTime();
     std::cout << "buttonTime1: " << buttonTime1 << std::endl;
 
@@ -458,7 +458,7 @@ int main()
     std::cout << "before clean keyboard color: " << stuffOnThisDesk.keyboard.caseColor << std::endl;
     stuffOnThisDesk.cleanDesk();
     std::cout << "after clean keyboard color: " << stuffOnThisDesk.keyboard.caseColor << std::endl;
-    stuffOnThisDesk.keyboardCaseColorCout();
+    stuffOnThisDesk.showKeyboardCaseColor();
     
     ThingsToBuy buyTheseThings;
     int cdDrivePrice1 = buyTheseThings.findCdDrivePrice();
