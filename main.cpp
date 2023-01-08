@@ -98,6 +98,8 @@ struct Mp3Player
     void playFile(); 
     void displayInfo(); 
     int findFiles();
+
+    void showOnOffSwitchColor();
 };
 
 Mp3Player::Mp3Player() :
@@ -136,6 +138,11 @@ int Mp3Player::findFiles()
     return count;
 }
 
+void Mp3Player::showOnOffSwitchColor()
+{
+    std::cout << "Mp3Player::showOnOffSwitchColor: " << this->onOffSwitchColor << std::endl;
+}
+
 
 /*
  copied UDT 2:
@@ -156,6 +163,8 @@ struct CdDrive
     void playDVD(); 
     void writeCdr(); 
     int findSpeed();
+
+    void showMaxSpeed();
 
     struct CD
     {
@@ -225,6 +234,11 @@ int CdDrive::findSpeed()
     return speed;
 }
 
+void CdDrive::showMaxSpeed()
+{
+    std::cout << "CdDrive::showMaxSpeed: " << this->maxSpeed << std::endl;
+}
+
 
 /*
  copied UDT 3:
@@ -249,6 +263,8 @@ struct Keyboard
     void displayNumLock(); 
     void displayCapsLock(); 
     int buttonPressTime();
+
+    void showButtonColor(); 
 };
 
 Keyboard::Keyboard() :
@@ -284,6 +300,11 @@ int Keyboard::buttonPressTime()
     return time;
 }
 
+void Keyboard::showButtonColor()
+{
+    std::cout << "Keyboard::showButtonColor: " << this->buttonColor << std::endl;
+}
+
 
 /*
  new UDT 4:
@@ -300,6 +321,8 @@ struct StuffOnMyDesk
 
     int countThings();
     void cleanDesk();
+
+    void showKeyboardCaseColor();
 };
 
 StuffOnMyDesk::StuffOnMyDesk()
@@ -323,6 +346,11 @@ void StuffOnMyDesk::cleanDesk()
 {
     mp3Player.onOffSwitchColor = "shiny white";
     keyboard.caseColor = "shiny black";
+}
+
+void StuffOnMyDesk::showKeyboardCaseColor()
+{
+    std::cout << "StuffOnMyDesk::showKeyboardCaseColor: " << this->keyboard.caseColor << std::endl;
 }
 
 
@@ -394,6 +422,7 @@ int main()
     mp3Player1.loadFile("music/mysong.mp3");
     mp3Player1.displayInfo();
     std::cout << "mp3Player1.onOffSwitchColor: " << mp3Player1.onOffSwitchColor << std::endl;
+    mp3Player1.showOnOffSwitchColor();
     
     Mp3Player mp3Player2;
     mp3Player2.playFile();
@@ -405,6 +434,7 @@ int main()
     cdDrive1.playDVD();
     cdDrive1.writeCdr();
     std::cout << "cdDrive1.maxSpeed: " << cdDrive1.maxSpeed << std::endl;
+    cdDrive1.showMaxSpeed();
     int cdDriveSpeed = cdDrive1.findSpeed();
     std::cout << "cdDrive1 speed: " << cdDriveSpeed << std::endl;
     
@@ -418,6 +448,7 @@ int main()
     keyboard1.displayNumLock();
     keyboard1.displayCapsLock();
     std::cout << "keyboard1.buttonColor: " << keyboard1.buttonColor << std::endl;
+    keyboard1.showButtonColor();
     int buttonTime1 = keyboard1.buttonPressTime();
     std::cout << "buttonTime1: " << buttonTime1 << std::endl;
 
@@ -427,7 +458,8 @@ int main()
     std::cout << "before clean keyboard color: " << stuffOnThisDesk.keyboard.caseColor << std::endl;
     stuffOnThisDesk.cleanDesk();
     std::cout << "after clean keyboard color: " << stuffOnThisDesk.keyboard.caseColor << std::endl;
-
+    stuffOnThisDesk.showKeyboardCaseColor();
+    
     ThingsToBuy buyTheseThings;
     int cdDrivePrice1 = buyTheseThings.findCdDrivePrice();
     std::cout << "cdDrivePrice1: " << cdDrivePrice1 << std::endl;
