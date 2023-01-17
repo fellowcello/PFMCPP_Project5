@@ -1,3 +1,6 @@
+#include <iostream>
+#include "LeakedObjectDetector.h"
+
 /*
  Project 5: Part 3 / 4
  video: Chapter 3 Part 4: 
@@ -103,6 +106,8 @@ struct Mp3Player
     int findFiles();
 
     void showOnOffSwitchColor();
+
+    JUCE_LEAK_DETECTOR(Mp3Player)
 };
 
 Mp3Player::Mp3Player() :
@@ -181,7 +186,10 @@ struct CdDrive
         void getScratched(); 
         void storeData(); 
         void goObsolete(); 
+        JUCE_LEAK_DETECTOR(CD)
     };
+
+    JUCE_LEAK_DETECTOR(CdDrive)
 };
 
 CdDrive::CdDrive() :
@@ -267,7 +275,9 @@ struct Keyboard
     void displayCapsLock(); 
     int buttonPressTime();
 
-    void showButtonColor(); 
+    void showButtonColor();
+
+    JUCE_LEAK_DETECTOR(Keyboard)
 };
 
 Keyboard::Keyboard() :
@@ -326,6 +336,8 @@ struct StuffOnMyDesk
     void cleanDesk();
 
     void showKeyboardCaseColor();
+
+    JUCE_LEAK_DETECTOR(StuffOnMyDesk)
 };
 
 StuffOnMyDesk::StuffOnMyDesk()
@@ -372,6 +384,8 @@ struct ThingsToBuy
 
     int findCdDrivePrice();
     int findKeyboardPrice();
+
+    JUCE_LEAK_DETECTOR(ThingsToBuy)
 };
 
 ThingsToBuy::ThingsToBuy()
@@ -418,7 +432,8 @@ int ThingsToBuy::findKeyboardPrice()
  Wait for my code review.
  */
 
-#include <iostream>
+
+
 int main()
 {
     Mp3Player mp3Player1;
