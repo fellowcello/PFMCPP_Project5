@@ -507,34 +507,32 @@ int main()
     int cdDriveSpeed = cdDriveWrapper1.pointerToCdDrive->findSpeed();
     std::cout << "cdDriveWrapper1.pointerToCdDrive-> speed: " << cdDriveSpeed << std::endl;
 
-
-    //0---------------------------------------------------------------------------------------------------------
     CdDrive::CD darkSide;
     darkSide.getScratched();
     darkSide.storeData();
     darkSide.goObsolete();
-    
-    Keyboard keyboard1;
-    keyboard1.outputButtonPress(23);
-    keyboard1.displayNumLock();
-    keyboard1.displayCapsLock();
-    std::cout << "keyboard1.buttonColor: " << keyboard1.buttonColor << std::endl;
-    keyboard1.showButtonColor();
-    int buttonTime1 = keyboard1.buttonPressTime();
+
+    KeyboardWrapper keyboardWrapper1(new Keyboard());
+    keyboardWrapper1.pointerToKeyboard->outputButtonPress(23);
+    keyboardWrapper1.pointerToKeyboard->displayNumLock();
+    keyboardWrapper1.pointerToKeyboard->displayCapsLock();
+    std::cout << "keyboardWrapper1.buttonColor: " << keyboardWrapper1.pointerToKeyboard->buttonColor << std::endl;
+    keyboardWrapper1.pointerToKeyboard->showButtonColor();
+    int buttonTime1 = keyboardWrapper1.pointerToKeyboard->buttonPressTime();
     std::cout << "buttonTime1: " << buttonTime1 << std::endl;
 
-    StuffOnMyDesk stuffOnThisDesk;
-    int deskThingCount = stuffOnThisDesk.countThings();
+    StuffOnMyDeskWrapper stuffOnMyDeskWrapper1(new StuffOnMyDesk());
+    int deskThingCount = stuffOnMyDeskWrapper1.pointerToStuffOnMyDesk->countThings();
     std::cout << "deskThingCount: " << deskThingCount << std::endl;
-    std::cout << "before clean keyboard color: " << stuffOnThisDesk.keyboard.caseColor << std::endl;
-    stuffOnThisDesk.cleanDesk();
-    std::cout << "after clean keyboard color: " << stuffOnThisDesk.keyboard.caseColor << std::endl;
-    stuffOnThisDesk.showKeyboardCaseColor();
-    
-    ThingsToBuy buyTheseThings;
-    int cdDrivePrice1 = buyTheseThings.findCdDrivePrice();
+    std::cout << "before clean keyboard color: " << stuffOnMyDeskWrapper1.pointerToStuffOnMyDesk->keyboard.caseColor << std::endl;
+    stuffOnMyDeskWrapper1.pointerToStuffOnMyDesk->cleanDesk();
+    std::cout << "after clean keyboard color: " << stuffOnMyDeskWrapper1.pointerToStuffOnMyDesk->keyboard.caseColor << std::endl;
+    stuffOnMyDeskWrapper1.pointerToStuffOnMyDesk->showKeyboardCaseColor();
+   
+    ThingsToBuyWrapper thingsToBuyWrapper1(new ThingsToBuy());
+    int cdDrivePrice1 = thingsToBuyWrapper1.pointerToThingsToBuy->findCdDrivePrice();
     std::cout << "cdDrivePrice1: " << cdDrivePrice1 << std::endl;
-    int keyboardPrice1 = buyTheseThings.findKeyboardPrice();
+    int keyboardPrice1 = thingsToBuyWrapper1.pointerToThingsToBuy->findKeyboardPrice();
     std::cout << "keyboardPrice1: " << keyboardPrice1 << std::endl;
     
     std::cout << "good to go!" << std::endl;
