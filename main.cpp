@@ -1,3 +1,6 @@
+#include <iostream>
+#include "LeakedObjectDetector.h"
+
 /*
  Project 5: Part 3 / 4
  video: Chapter 3 Part 4: 
@@ -103,6 +106,8 @@ struct Mp3Player
     int findFiles();
 
     void showOnOffSwitchColor();
+
+    JUCE_LEAK_DETECTOR(Mp3Player)
 };
 
 Mp3Player::Mp3Player() :
@@ -146,6 +151,16 @@ void Mp3Player::showOnOffSwitchColor()
     std::cout << "Mp3Player::showOnOffSwitchColor: " << this->onOffSwitchColor << std::endl;
 }
 
+struct Mp3PlayerWrapper
+{
+    Mp3PlayerWrapper(Mp3Player* ptr) : pointerToMp3Player(ptr){}
+    ~Mp3PlayerWrapper()
+    {
+        delete pointerToMp3Player;
+    }
+    Mp3Player* pointerToMp3Player = nullptr;
+};
+
 
 /*
  copied UDT 2:
@@ -181,7 +196,10 @@ struct CdDrive
         void getScratched(); 
         void storeData(); 
         void goObsolete(); 
+        JUCE_LEAK_DETECTOR(CD)
     };
+
+    JUCE_LEAK_DETECTOR(CdDrive)
 };
 
 CdDrive::CdDrive() :
@@ -242,6 +260,16 @@ void CdDrive::showMaxSpeed()
     std::cout << "CdDrive::showMaxSpeed: " << this->maxSpeed << std::endl;
 }
 
+struct CdDriveWrapper
+{
+    CdDriveWrapper(CdDrive* ptr) : pointerToCdDrive(ptr){}
+    ~CdDriveWrapper()
+    {
+        delete pointerToCdDrive;
+    }
+    CdDrive* pointerToCdDrive = nullptr;
+};
+
 
 /*
  copied UDT 3:
@@ -267,7 +295,9 @@ struct Keyboard
     void displayCapsLock(); 
     int buttonPressTime();
 
-    void showButtonColor(); 
+    void showButtonColor();
+
+    JUCE_LEAK_DETECTOR(Keyboard)
 };
 
 Keyboard::Keyboard() :
@@ -308,6 +338,16 @@ void Keyboard::showButtonColor()
     std::cout << "Keyboard::showButtonColor: " << this->buttonColor << std::endl;
 }
 
+struct KeyboardWrapper
+{
+    KeyboardWrapper(Keyboard* ptr) : pointerToKeyboard(ptr){}
+    ~KeyboardWrapper()
+    {
+        delete pointerToKeyboard;
+    }
+    Keyboard* pointerToKeyboard = nullptr;
+};
+
 
 /*
  new UDT 4:
@@ -326,6 +366,8 @@ struct StuffOnMyDesk
     void cleanDesk();
 
     void showKeyboardCaseColor();
+
+    JUCE_LEAK_DETECTOR(StuffOnMyDesk)
 };
 
 StuffOnMyDesk::StuffOnMyDesk()
@@ -356,6 +398,16 @@ void StuffOnMyDesk::showKeyboardCaseColor()
     std::cout << "StuffOnMyDesk::showKeyboardCaseColor: " << this->keyboard.caseColor << std::endl;
 }
 
+struct StuffOnMyDeskWrapper
+{
+    StuffOnMyDeskWrapper(StuffOnMyDesk* ptr) : pointerToStuffOnMyDesk(ptr){}
+    ~StuffOnMyDeskWrapper()
+    {
+        delete pointerToStuffOnMyDesk;
+    }
+    StuffOnMyDesk* pointerToStuffOnMyDesk = nullptr;
+};
+
 
 /*
  new UDT 5:
@@ -372,6 +424,8 @@ struct ThingsToBuy
 
     int findCdDrivePrice();
     int findKeyboardPrice();
+
+    JUCE_LEAK_DETECTOR(ThingsToBuy)
 };
 
 ThingsToBuy::ThingsToBuy()
@@ -403,6 +457,16 @@ int ThingsToBuy::findKeyboardPrice()
     return 50;
 }
 
+struct ThingsToBuyWrapper
+{
+    ThingsToBuyWrapper(ThingsToBuy* ptr) : pointerToThingsToBuy(ptr){}
+    ~ThingsToBuyWrapper()
+    {
+        delete pointerToThingsToBuy;
+    }
+    ThingsToBuy* pointerToThingsToBuy = nullptr;
+};
+
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -418,55 +482,57 @@ int ThingsToBuy::findKeyboardPrice()
  Wait for my code review.
  */
 
-#include <iostream>
+
+
 int main()
 {
-    Mp3Player mp3Player1;
-    mp3Player1.loadFile("music/mysong.mp3");
-    mp3Player1.displayInfo();
-    std::cout << "mp3Player1.onOffSwitchColor: " << mp3Player1.onOffSwitchColor << std::endl;
-    mp3Player1.showOnOffSwitchColor();
     
-    Mp3Player mp3Player2;
-    mp3Player2.playFile();
-    int mp3FileCount = mp3Player2.findFiles();
+    Mp3PlayerWrapper mp3PlayerWrapper1(new Mp3Player());
+    mp3PlayerWrapper1.pointerToMp3Player->loadFile("music/mysong.mp3");
+    mp3PlayerWrapper1.pointerToMp3Player->displayInfo();
+    std::cout << "mp3PlayerWrapper1.onOffSwitchColor: " << mp3PlayerWrapper1.pointerToMp3Player->onOffSwitchColor << std::endl;
+    mp3PlayerWrapper1.pointerToMp3Player->showOnOffSwitchColor();
+
+    Mp3PlayerWrapper mp3PlayerWrapper2(new Mp3Player());
+    mp3PlayerWrapper2.pointerToMp3Player->playFile();
+    int mp3FileCount = mp3PlayerWrapper2.pointerToMp3Player->findFiles();
     std::cout << "mp3FileCount: " << mp3FileCount << std::endl;
-     
-    CdDrive cdDrive1;
-    cdDrive1.playCd();
-    cdDrive1.playDVD();
-    cdDrive1.writeCdr();
-    std::cout << "cdDrive1.maxSpeed: " << cdDrive1.maxSpeed << std::endl;
-    cdDrive1.showMaxSpeed();
-    int cdDriveSpeed = cdDrive1.findSpeed();
-    std::cout << "cdDrive1 speed: " << cdDriveSpeed << std::endl;
-    
+
+    CdDriveWrapper cdDriveWrapper1(new CdDrive());
+    cdDriveWrapper1.pointerToCdDrive->playCd();
+    cdDriveWrapper1.pointerToCdDrive->playDVD();
+    cdDriveWrapper1.pointerToCdDrive->writeCdr();
+    std::cout << "cdDriveWrapper1.pointerToCdDrive->maxSpeed: " << cdDriveWrapper1.pointerToCdDrive->maxSpeed << std::endl;
+    cdDriveWrapper1.pointerToCdDrive->showMaxSpeed();
+    int cdDriveSpeed = cdDriveWrapper1.pointerToCdDrive->findSpeed();
+    std::cout << "cdDriveWrapper1.pointerToCdDrive-> speed: " << cdDriveSpeed << std::endl;
+
     CdDrive::CD darkSide;
     darkSide.getScratched();
     darkSide.storeData();
     darkSide.goObsolete();
-    
-    Keyboard keyboard1;
-    keyboard1.outputButtonPress(23);
-    keyboard1.displayNumLock();
-    keyboard1.displayCapsLock();
-    std::cout << "keyboard1.buttonColor: " << keyboard1.buttonColor << std::endl;
-    keyboard1.showButtonColor();
-    int buttonTime1 = keyboard1.buttonPressTime();
+
+    KeyboardWrapper keyboardWrapper1(new Keyboard());
+    keyboardWrapper1.pointerToKeyboard->outputButtonPress(23);
+    keyboardWrapper1.pointerToKeyboard->displayNumLock();
+    keyboardWrapper1.pointerToKeyboard->displayCapsLock();
+    std::cout << "keyboardWrapper1.buttonColor: " << keyboardWrapper1.pointerToKeyboard->buttonColor << std::endl;
+    keyboardWrapper1.pointerToKeyboard->showButtonColor();
+    int buttonTime1 = keyboardWrapper1.pointerToKeyboard->buttonPressTime();
     std::cout << "buttonTime1: " << buttonTime1 << std::endl;
 
-    StuffOnMyDesk stuffOnThisDesk;
-    int deskThingCount = stuffOnThisDesk.countThings();
+    StuffOnMyDeskWrapper stuffOnMyDeskWrapper1(new StuffOnMyDesk());
+    int deskThingCount = stuffOnMyDeskWrapper1.pointerToStuffOnMyDesk->countThings();
     std::cout << "deskThingCount: " << deskThingCount << std::endl;
-    std::cout << "before clean keyboard color: " << stuffOnThisDesk.keyboard.caseColor << std::endl;
-    stuffOnThisDesk.cleanDesk();
-    std::cout << "after clean keyboard color: " << stuffOnThisDesk.keyboard.caseColor << std::endl;
-    stuffOnThisDesk.showKeyboardCaseColor();
-    
-    ThingsToBuy buyTheseThings;
-    int cdDrivePrice1 = buyTheseThings.findCdDrivePrice();
+    std::cout << "before clean keyboard color: " << stuffOnMyDeskWrapper1.pointerToStuffOnMyDesk->keyboard.caseColor << std::endl;
+    stuffOnMyDeskWrapper1.pointerToStuffOnMyDesk->cleanDesk();
+    std::cout << "after clean keyboard color: " << stuffOnMyDeskWrapper1.pointerToStuffOnMyDesk->keyboard.caseColor << std::endl;
+    stuffOnMyDeskWrapper1.pointerToStuffOnMyDesk->showKeyboardCaseColor();
+   
+    ThingsToBuyWrapper thingsToBuyWrapper1(new ThingsToBuy());
+    int cdDrivePrice1 = thingsToBuyWrapper1.pointerToThingsToBuy->findCdDrivePrice();
     std::cout << "cdDrivePrice1: " << cdDrivePrice1 << std::endl;
-    int keyboardPrice1 = buyTheseThings.findKeyboardPrice();
+    int keyboardPrice1 = thingsToBuyWrapper1.pointerToThingsToBuy->findKeyboardPrice();
     std::cout << "keyboardPrice1: " << keyboardPrice1 << std::endl;
     
     std::cout << "good to go!" << std::endl;
