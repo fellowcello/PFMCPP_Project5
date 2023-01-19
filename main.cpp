@@ -151,6 +151,16 @@ void Mp3Player::showOnOffSwitchColor()
     std::cout << "Mp3Player::showOnOffSwitchColor: " << this->onOffSwitchColor << std::endl;
 }
 
+struct Mp3PlayerWrapper
+{
+    Mp3PlayerWrapper(Mp3Player* ptr) : pointerToMp3Player(ptr){}
+    ~Mp3PlayerWrapper()
+    {
+        delete pointerToMp3Player;
+    }
+    Mp3Player* pointerToMp3Player = nullptr;
+};
+
 
 /*
  copied UDT 2:
@@ -250,6 +260,16 @@ void CdDrive::showMaxSpeed()
     std::cout << "CdDrive::showMaxSpeed: " << this->maxSpeed << std::endl;
 }
 
+struct CdDriveWrapper
+{
+    CdDriveWrapper(CdDrive* ptr) : pointerToCdDrive(ptr){}
+    ~CdDriveWrapper()
+    {
+        delete pointerToCdDrive;
+    }
+    CdDrive* pointerToCdDrive = nullptr;
+};
+
 
 /*
  copied UDT 3:
@@ -318,6 +338,16 @@ void Keyboard::showButtonColor()
     std::cout << "Keyboard::showButtonColor: " << this->buttonColor << std::endl;
 }
 
+struct KeyboardWrapper
+{
+    KeyboardWrapper(Keyboard* ptr) : pointerToKeyboard(ptr){}
+    ~KeyboardWrapper()
+    {
+        delete pointerToKeyboard;
+    }
+    Keyboard* pointerToKeyboard = nullptr;
+};
+
 
 /*
  new UDT 4:
@@ -368,6 +398,16 @@ void StuffOnMyDesk::showKeyboardCaseColor()
     std::cout << "StuffOnMyDesk::showKeyboardCaseColor: " << this->keyboard.caseColor << std::endl;
 }
 
+struct StuffOnMyDeskWrapper
+{
+    StuffOnMyDeskWrapper(StuffOnMyDesk* ptr) : pointerToStuffOnMyDesk(ptr){}
+    ~StuffOnMyDeskWrapper()
+    {
+        delete pointerToStuffOnMyDesk;
+    }
+    StuffOnMyDesk* pointerToStuffOnMyDesk = nullptr;
+};
+
 
 /*
  new UDT 5:
@@ -417,6 +457,16 @@ int ThingsToBuy::findKeyboardPrice()
     return 50;
 }
 
+struct ThingsToBuyWrapper
+{
+    ThingsToBuyWrapper(ThingsToBuy* ptr) : pointerToThingsToBuy(ptr){}
+    ~ThingsToBuyWrapper()
+    {
+        delete pointerToThingsToBuy;
+    }
+    ThingsToBuy* pointerToThingsToBuy = nullptr;
+};
+
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -436,26 +486,29 @@ int ThingsToBuy::findKeyboardPrice()
 
 int main()
 {
-    Mp3Player mp3Player1;
-    mp3Player1.loadFile("music/mysong.mp3");
-    mp3Player1.displayInfo();
-    std::cout << "mp3Player1.onOffSwitchColor: " << mp3Player1.onOffSwitchColor << std::endl;
-    mp3Player1.showOnOffSwitchColor();
     
-    Mp3Player mp3Player2;
-    mp3Player2.playFile();
-    int mp3FileCount = mp3Player2.findFiles();
+    Mp3PlayerWrapper mp3PlayerWrapper1(new Mp3Player());
+    mp3PlayerWrapper1.pointerToMp3Player->loadFile("music/mysong.mp3");
+    mp3PlayerWrapper1.pointerToMp3Player->displayInfo();
+    std::cout << "mp3PlayerWrapper1.onOffSwitchColor: " << mp3PlayerWrapper1.pointerToMp3Player->onOffSwitchColor << std::endl;
+    mp3PlayerWrapper1.pointerToMp3Player->showOnOffSwitchColor();
+
+    Mp3PlayerWrapper mp3PlayerWrapper2(new Mp3Player());
+    mp3PlayerWrapper2.pointerToMp3Player->playFile();
+    int mp3FileCount = mp3PlayerWrapper2.pointerToMp3Player->findFiles();
     std::cout << "mp3FileCount: " << mp3FileCount << std::endl;
-     
-    CdDrive cdDrive1;
-    cdDrive1.playCd();
-    cdDrive1.playDVD();
-    cdDrive1.writeCdr();
-    std::cout << "cdDrive1.maxSpeed: " << cdDrive1.maxSpeed << std::endl;
-    cdDrive1.showMaxSpeed();
-    int cdDriveSpeed = cdDrive1.findSpeed();
-    std::cout << "cdDrive1 speed: " << cdDriveSpeed << std::endl;
-    
+
+    CdDriveWrapper cdDriveWrapper1(new CdDrive());
+    cdDriveWrapper1.pointerToCdDrive->playCd();
+    cdDriveWrapper1.pointerToCdDrive->playDVD();
+    cdDriveWrapper1.pointerToCdDrive->writeCdr();
+    std::cout << "cdDriveWrapper1.pointerToCdDrive->maxSpeed: " << cdDriveWrapper1.pointerToCdDrive->maxSpeed << std::endl;
+    cdDriveWrapper1.pointerToCdDrive->showMaxSpeed();
+    int cdDriveSpeed = cdDriveWrapper1.pointerToCdDrive->findSpeed();
+    std::cout << "cdDriveWrapper1.pointerToCdDrive-> speed: " << cdDriveSpeed << std::endl;
+
+
+    //0---------------------------------------------------------------------------------------------------------
     CdDrive::CD darkSide;
     darkSide.getScratched();
     darkSide.storeData();
